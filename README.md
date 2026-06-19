@@ -85,37 +85,70 @@ Connect to any OpenAI-compatible API:
 
 ## 🚀 Quick Start
 
-### Prerequisites
+### System Requirements
 
-- Node.js 20+
-- pnpm 8+ (recommended) or npm
+| Component | Minimum | Recommended |
+|-----------|---------|-------------|
+| **OS** | Linux, macOS, Windows 10+ | Linux Mint, Ubuntu 22.04+, macOS |
+| **Node.js** | v20.0.0 | v20 LTS |
+| **RAM** | 4 GB | 8 GB |
+| **Storage** | 2 GB free | 5 GB free |
+| **Network** | Internet | Stable connection |
 
-### 1. Clone the Repository
+> ⚠️ **No GPU required!** OpenCode Studio uses cloud APIs and runs on any CPU.
+
+### 1. Install Node.js
+
+```bash
+# Linux Mint / Ubuntu
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt install nodejs
+
+# Verify
+node --version  # Should show v20.x.x
+```
+
+### 2. Install pnpm
+
+```bash
+npm install -g pnpm
+pnpm --version  # Should show 8.x.x
+```
+
+### 3. Clone the Repository
 
 ```bash
 git clone https://github.com/Gourishkumbar123/opencode-studio.git
 cd opencode-studio
 ```
 
-### 2. Install Dependencies
+### 4. Install Dependencies
 
 ```bash
 pnpm install
 ```
 
-### 3. Configure API Key
+### 5. Configure API Key
 
 ```bash
 cp .env.example .env
 echo "OPENROUTER_API_KEY=sk-or-v1-xxxxx" >> .env
 ```
 
-### 4. Start the CLI
+### 6. Start the CLI
 
 ```bash
 pnpm cli interactive
 # or
 opencode interactive
+```
+
+### Quick Test (5 minutes)
+
+```bash
+# Test MCP connectors (no API key needed)
+node scripts/mcp-manager.js registry
+node scripts/mcp-manager.js test memory
 ```
 
 ---
