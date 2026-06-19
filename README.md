@@ -26,9 +26,10 @@
 
 ### 🤖 AI-Powered Coding Agent
 
-- **Autonomous Agent Loop**: Observe → Think → Plan → Act → Verify → Reflect
+- **Autonomous Agent Loop**: Observe → Think → Plan → Act → Verify → Reflect → **Learn**
 - **Multi-Step Planning**: Automatically break down complex tasks into executable steps
 - **Self-Correction**: The agent detects failures and retries with alternative approaches
+- **Learning Memory**: AI learns from past mistakes and successes, building persistent knowledge
 - **Context Management**: Handle 100k+ tokens with smart truncation and summarization
 
 ### 🔌 Multi-Provider AI Support
@@ -238,8 +239,43 @@ opencode-studio/
 ### Agent Loop
 
 ```
-OBSERVE → THINK → PLAN → ACT → VERIFY → REFLECT → (repeat)
+┌─────────────┐
+│   OBSERVE   │ ← Get user input, read files, check state
+└──────┬──────┘
+       ▼
+┌─────────────┐
+│    THINK    │ ← Analyze task, understand context
+└──────┬──────┘
+       ▼
+┌─────────────┐
+│    PLAN     │ ← Create execution plan, break into steps
+└──────┬──────┘
+       ▼
+┌─────────────┐
+│     ACT     │ ← Execute tools, modify files, run commands
+└──────┬──────┘
+       ▼
+┌─────────────┐
+│   VERIFY    │ ← Check results, validate changes
+└──────┬──────┘
+       ▼
+┌─────────────┐
+│   REFLECT   │ ← Self-correct if needed, summarize
+└──────┬──────┘
+       ▼
+┌─────────────┐
+│    LEARN    │ ← Store patterns, learn from mistakes
+└──────┬──────┘
+       │
+       └──────→ Repeat until task complete
 ```
+
+**Learning Memory Features:**
+- Remembers successful patterns and strategies
+- Learns from failures and avoids repeated mistakes
+- Builds project-specific knowledge over time
+- Semantic search across past sessions
+- Automatic knowledge graph updates
 
 ---
 
