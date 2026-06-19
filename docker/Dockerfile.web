@@ -1,0 +1,59 @@
+# ============================================================================
+# OpenCode Studio Web UI - Dockerfile
+# ============================================================================
+
+FROM node:20-alpine AS base
+
+WORKDIR /app
+
+# Install dependencies
+RUN apk add --no-cache python3 make g++ git
+
+# ============================================================================
+# Dependencies
+# ============================================================================
+
+FROM base AS deps
+
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY packages/web/package.json packages/web/
+
+RUN npm install -g pnpm@8
+RUN pnpm install --frozen-lockfile --filter @opencode/web
+
+# ============================================================================
+# Builder
+# ============================================================================
+
+FROM deps AS builder
+
+COPY . .
+
+RUN pnpm build --filter @opencode/web
+
+# ============================================================================
+# Production
+# ============================================================================
+
+FROM base AS production
+
+WORKDIR /app
+
+# Install runtime dependencies
+RUN apk add --no-cache nginx
+
+# Copy built application
+COPY --from=builder /app/packages/web/.next ./.next
+COPY --from=builder /app/packages/web/public ./public
+COPY --from=builder /app/packages/web/package.json .
+
+# Install production dependencies
+RUN npm install -g pnpm@8
+RUN pnpm install --frozen-lockfile --filter @opencode/web
+
+# Nginx configuration
+COPY docker/nginx.conf /etc/nginx/http.d/default.conf
+
+EXPOSE 3000
+
+CMD ["sh", "-c", "pnpm --filter @opencode/web start"]
